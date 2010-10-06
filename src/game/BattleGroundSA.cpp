@@ -28,11 +28,19 @@ BattleGroundSA::BattleGroundSA()
     m_StartMessageIds[BG_STARTING_EVENT_SECOND] = LANG_BG_WS_START_ONE_MINUTE;
     m_StartMessageIds[BG_STARTING_EVENT_THIRD]  = LANG_BG_WS_START_HALF_MINUTE;
     m_StartMessageIds[BG_STARTING_EVENT_FOURTH] = LANG_BG_WS_HAS_BEGUN;
+    TimerEnabled = false;
 }
 
 BattleGroundSA::~BattleGroundSA()
 {
 
+}
+
+void BattleGroundSA::Reset()
+{
+    // --- set team attackers and defender
+    attackers = ((urand(0,1)) ? BG_TEAM_ALLIANCE : BG_TEAM_HORDE);
+    ShipStarted = false;
 }
 
 void BattleGroundSA::Update(uint32 diff)
@@ -53,6 +61,30 @@ void BattleGroundSA::AddPlayer(Player *plr)
     BattleGround::AddPlayer(plr);
     //create score and add it to map, default values are set in constructor
     BattleGroundSAScore* sc = new BattleGroundSAScore;
+    
+    // ----- ship not started
+    if(!ShipStarted)
+    {
+        if(plr->GetTeam() == attackers)
+        {
+            plr->CastSpell(plr,12438,true);
+            if (urand(0,1))
+                plr->TeleportTo(607, 2682.936f, -830.368f, 50.0f, 2.895f, 0);
+            else
+                plr->TeleportTo(607, 2577.003f, 980.261f, 50.0f, 0.807f, 0);
+        }else{
+            plr->TeleportTo(607, 1209.7f, -65.16f, 70.1f, 0.0f, 0);
+        }
+    // ----- ship started
+    }else{
+        if(plr->GetTeam() == attackers)
+        {
+            // IMPORTANT: NEED IMPLEMENT URAND
+            plr->TeleportTo(607, 1600.381f, -106.263f, 8.8745f, 3.78f, 0);
+        }else{
+            plr->TeleportTo(607, 1209.7f, -65.16f, 70.1f, 0.0f, 0);
+        }
+    }
 
     m_PlayerScores[plr->GetGUID()] = sc;
 }

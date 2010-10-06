@@ -50,5 +50,9 @@ class BattleGroundSA : public BattleGround
         void UpdatePlayerScore(Player *Source, uint32 type, uint32 value);
 
     private:
+        bool TimerEnabled;
+        BattleGroundTeamId attackers;
+
+        bool ShipStarted;
 };
 #endif
