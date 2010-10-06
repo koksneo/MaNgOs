@@ -42,6 +42,7 @@ class BattleGroundSA : public BattleGround
         virtual void StartingEventCloseDoors();
         virtual void StartingEventOpenDoors();
         virtual void Reset();
+        virtual bool TriggerTeamStartLoc(uint32 TeamID, float &X, float &Y, float &Z, float &O) const;
 
         void RemovePlayer(Player *plr,uint64 guid);
         void HandleAreaTrigger(Player *Source, uint32 Trigger);

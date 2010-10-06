@@ -36,6 +36,52 @@ BattleGroundSA::~BattleGroundSA()
 
 }
 
+bool BattleGroundSA::TriggerTeamStartLoc(uint32 TeamID, float &X, float &Y, float &Z, float &O) const
+{
+    if(!ShipStarted)
+    {
+        if(TeamID == attackers)
+        {
+            if (urand(0,1))
+            {
+                X = 2682.936f;
+                Y = -830.368f;
+                Z = 50.0f;
+                O = 2.895f;
+            }
+            else
+            {
+                X = 2577.003f;
+                Y = 980.261f;
+                Z = 50.0f;
+                O = 0.807f;
+            }
+        }else{
+            X = 1209.7f;
+            Y = -65.16f;
+            Z = 70.1f;
+            O = 0.0f;
+        }
+    // ----- ship started
+    }else{
+        if(TeamID == attackers)
+        {
+            // IMPORTANT: NEED IMPLEMENT URAND
+            X = 1600.381f;
+            Y = -106.263f;
+            Z = 8.8745f;
+            O = 3.78f;
+        }else{
+            X = 1209.7f;
+            Y = -65.16f;
+            Z = 70.1f;
+            O = 0.0f;
+        }
+    }
+
+    return true;
+}
+
 void BattleGroundSA::Reset()
 {
     BattleGround::Reset();
@@ -63,30 +109,9 @@ void BattleGroundSA::AddPlayer(Player *plr)
     BattleGround::AddPlayer(plr);
     //create score and add it to map, default values are set in constructor
     BattleGroundSAScore* sc = new BattleGroundSAScore;
-    
-    // ----- ship not started
-    if(!ShipStarted)
-    {
-        if(plr->GetTeam() == attackers)
-        {
-            plr->CastSpell(plr,12438,true);
-            if (urand(0,1))
-                plr->TeleportTo(607, 2682.936f, -830.368f, 50.0f, 2.895f, 0);
-            else
-                plr->TeleportTo(607, 2577.003f, 980.261f, 50.0f, 0.807f, 0);
-        }else{
-            plr->TeleportTo(607, 1209.7f, -65.16f, 70.1f, 0.0f, 0);
-        }
-    // ----- ship started
-    }else{
-        if(plr->GetTeam() == attackers)
-        {
-            // IMPORTANT: NEED IMPLEMENT URAND
-            plr->TeleportTo(607, 1600.381f, -106.263f, 8.8745f, 3.78f, 0);
-        }else{
-            plr->TeleportTo(607, 1209.7f, -65.16f, 70.1f, 0.0f, 0);
-        }
-    }
+
+    if(plr->GetTeam() == attackers)
+        plr->CastSpell(plr,12438,true);
 
     m_PlayerScores[plr->GetGUID()] = sc;
 }

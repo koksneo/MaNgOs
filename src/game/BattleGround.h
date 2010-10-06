@@ -410,10 +410,18 @@ class BattleGround
             MANGOS_ASSERT(m_Map);
             return m_Map;
         }
+        
 
+        virtual bool TriggerTeamStartLoc(uint32 TeamID, float &X, float &Y, float &Z, float &O) const
+        {
+            return false;
+        }
         void SetTeamStartLoc(uint32 TeamID, float X, float Y, float Z, float O);
         void GetTeamStartLoc(uint32 TeamID, float &X, float &Y, float &Z, float &O) const
         {
+            if(TriggerTeamStartLoc(TeamID, X, Y, Z, O))
+                return;
+
             BattleGroundTeamId idx = GetTeamIndexByTeamId(TeamID);
             X = m_TeamStartLocX[idx];
             Y = m_TeamStartLocY[idx];
