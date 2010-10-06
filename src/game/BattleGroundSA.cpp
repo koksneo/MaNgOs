@@ -38,6 +38,8 @@ BattleGroundSA::~BattleGroundSA()
 
 void BattleGroundSA::Reset()
 {
+    BattleGround::Reset();
+
     // --- set team attackers and defender
     attackers = ((urand(0,1)) ? BG_TEAM_ALLIANCE : BG_TEAM_HORDE);
     ShipStarted = false;
