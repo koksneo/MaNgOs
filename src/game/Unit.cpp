@@ -45,8 +45,8 @@
 #include "GridNotifiersImpl.h"
 #include "CellImpl.h"
 #include "Path.h"
-#include "Traveller.h"
 #include "PathFinder.h"
+#include "Traveller.h"
 #include "VMapFactory.h"
 #include "MovementGenerator.h"
 
