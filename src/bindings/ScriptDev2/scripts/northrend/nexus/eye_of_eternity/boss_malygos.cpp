@@ -894,7 +894,7 @@ struct MANGOS_DLL_DECL boss_malygosAI : public ScriptedAI
                 if (!IsThereAnyAdd())
                 {
                     m_creature->StopMoving();
-                    m_creature->GetMotionMaster()->MovePoint(0, CENTER_X, CENTER_Y, m_creature->GetPositionZ());
+                    m_creature->GetMotionMaster()->MovePoint(0, CENTER_X, CENTER_Y, m_creature->GetPositionZ(), false);
                     m_uiPhase = PHASE_DRAGONS;
                     m_uiSubPhase = SUBPHASE_DESTROY_PLATFORM_1;
                     DoScriptText(SAY_END_PHASE2, m_creature);
